@@ -3,6 +3,8 @@ ForeverUtills.Modules = ForeverUtills.Modules or {}
 ForeverUtills.Modules.Aggro = {}
 local module = ForeverUtills.Modules.Aggro
 
+local taggedMobs = {}
+
 --=================================
 -- AggroColor
 -- for wow Forever
@@ -32,8 +34,8 @@ local function SetBarColor(healthBar, color)
         color[3],
         1
     )
-
 end
+
 
 local function UpdateNameplate(namePlate)
     if not ForeverUtillsDB.AggroEnabled then
@@ -67,6 +69,13 @@ local function UpdateNameplate(namePlate)
     if not healthBar then 
         return
     end
+    
+    --test
+    local region16 = select(16, healthBar:GetRegions())
+
+    if region16 then
+        
+    end
 
     -- get threat leveln info
     local status = UnitThreatSituation("player", unit)
@@ -77,9 +86,27 @@ local function UpdateNameplate(namePlate)
     local isTargetingPlayer = UnitIsUnit(target, "player")
     local isTargetingGroupMember = hasTarget and UnitIsPlayer(target) and (UnitInParty(target) or UnitInRaid(target))
 
+    -- was mop tagged by me/my group
+    local isTapDenied = UnitIsTapDenied(unit)
+    local isPulledByOther = hasTarget and isTapDenied
+    
+    -- Unit ID instead of nameplateXYZ
+    local guid = UnitGUID(unit)
+    
+    if guid and hasTarget and not isTapDenied then
+        taggedMobs[guid] =  true
+    end
+    
+    -- test
+  
     -- get player role info
     local role = UnitGroupRolesAssigned("player")
     local isTank = (role == "TANK")
+
+    if isTapDenied and status == nil then
+        SetBarColor(healthBar, COLORS.GREY)
+        return
+    end
 
     --====================================================
     -- Threat Levels
@@ -96,20 +123,20 @@ local function UpdateNameplate(namePlate)
         --==================
         
         -- full aggro
-        if isTargetingPlayer and status == 3 then
+        if taggedMobs[guid] and isTargetingPlayer and status == 3 then
             SetBarColor(healthBar, COLORS.GREEN)
         -- Primary but not higest
-        elseif isTargetingPlayer and  status == 2 then
+        elseif taggedMobs[guid] and isTargetingPlayer and  status == 2 then
             SetBarColor(healthBar, COLORS.YELLOW)
         -- not Primary but high
-        elseif isTargetingPlayer and status == 1 then
+        elseif taggedMobs[guid] and isTargetingPlayer and status == 1 then
             SetBarColor(healthBar, COLORS.ORANGE)
         -- no aggro
         elseif isTargetingGroupMember then
             SetBarColor(healthBar, COLORS.RED)
         -- not pulled
         else
-            SetBarColor(healthBar, COLORS.GREY)
+            return
         end
     
     else
@@ -118,7 +145,7 @@ local function UpdateNameplate(namePlate)
         --=====================
         
         -- no aggro
-        if isTargetingGroupMember and status == 0 then
+        if taggedMobs[guid] and isTargetingPlayer then
             SetBarColor(healthBar, COLORS.GREEN)
         -- low aggro
         elseif isTargetingGroupMember and  status == 1 then
@@ -127,11 +154,11 @@ local function UpdateNameplate(namePlate)
         elseif isTargetingGroupMember and status == 2 then
             SetBarColor(healthBar, COLORS.ORANGE)
         -- you have aggro
-        elseif isTargetingPlayer then
+        elseif not isTargetingPlayer then
             SetBarColor(healthBar, COLORS.RED)
         -- not pulled
         else
-            SetBarColor(healthBar, COLORS.GREY)
+            return
         end
     end
 end
