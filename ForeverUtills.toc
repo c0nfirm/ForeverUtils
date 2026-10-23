@@ -1,0 +1,10 @@
+## Interface: 16001
+## Title: ForeverUtills
+## Notes: Utilities for WoW Forever
+## Author: c0nfirm
+## Version: 2.8
+## SavedVariables: ForeverUtillsDB
+
+Core.lua
+Aggro.lua
+ItemCount.lua

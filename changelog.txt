@@ -1,0 +1,10 @@
+1.0   AggroColor addon
+2.0   einteilung in "Aggro" und "ItemCount" modules
+2.1   Settings menue mit checkboxen (ohne funktionalität)
+2.2   saved variables for module toggle (aktuell nur aggro)
+2.3   menue checkboxen merken sich ihren zustand auch nach reload und restart
+2.4   ItemCount funktioniert (menu toggle hat noch keine funktion)
+2.5   Menue checkboxen funktionieren beide jetzt
+2.6   ItemCount character cache for bank and bags per character-server
+2.7   ItemCount -> exclude equiped bags (bag, reagent and bank slot)
+2.8   Updated Thread check with check for who is targeted
