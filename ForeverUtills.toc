@@ -6,5 +6,4 @@
 ## SavedVariables: ForeverUtillsDB
 
 Core.lua
-Aggro.lua
 ItemCount.lua

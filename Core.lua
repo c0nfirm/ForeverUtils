@@ -3,9 +3,12 @@ ForeverUtills = addon
 addon.Modules = {}
 ForeverUtillsDB = ForeverUtillsDB or {}
 
+--[[    wip
 if ForeverUtillsDB.AggroEnabled == nil then
     ForeverUtillsDB.AggroEnabled = true
 end
+]]
+
 if ForeverUtillsDB.ItemCountEnabled == nil then
     ForeverUtillsDB.ItemCountEnabled = true
 end
@@ -13,6 +16,7 @@ end
 -- Settings --
 local category = Settings.RegisterVerticalLayoutCategory("ForeverUtills")
 
+--[[  wip
 aggroSetting = Settings.RegisterAddOnSetting(
     category,
     "ForeverUtillsDB_AggroEnabled",
@@ -44,6 +48,7 @@ end)
 C_Timer.After(0, function()
     aggroSetting:SetValue(ForeverUtillsDB.AggroEnabled)
 end)
+]]
 
 local itemCountSetting = Settings.RegisterAddOnSetting(
     category,

@@ -68,16 +68,9 @@ local function UpdateNameplate(namePlate)
         return
     end
 
-    -- get threat leveln info
     local status = UnitThreatSituation("player", unit)
-    
-    -- get mob targeting info
-    local target = unit .. "target"
-    local hasTarget = UnitExists(target)
-    local isTargetingPlayer = UnitIsUnit(target, "player")
-    local isTargetingGroupMember = hasTarget and UnitIsPlayer(target) and (UnitInParty(target) or UnitInRaid(target))
 
-    -- get player role info
+    -- check player role
     local role = UnitGroupRolesAssigned("player")
     local isTank = (role == "TANK")
 
@@ -94,45 +87,45 @@ local function UpdateNameplate(namePlate)
         --==================
         -- Tank: Keep Aggro
         --==================
-        
+    
         -- full aggro
-        if isTargetingPlayer and status == 3 then
+        if status == 3 then
             SetBarColor(healthBar, COLORS.GREEN)
         -- Primary but not higest
-        elseif isTargetingPlayer and  status == 2 then
+        elseif status == 2 then
             SetBarColor(healthBar, COLORS.YELLOW)
         -- not Primary but high
-        elseif isTargetingPlayer and status == 1 then
+        elseif status == 1 then
             SetBarColor(healthBar, COLORS.ORANGE)
         -- no aggro
-        elseif isTargetingGroupMember then
-            SetBarColor(healthBar, COLORS.RED)
+        elseif status == 0 then
+        SetBarColor(healthBar, COLORS.RED)
         -- not pulled
         else
             SetBarColor(healthBar, COLORS.GREY)
         end
     
-    else
+        else
         --=====================
         -- DD/Heal: Evade Aggro
         --=====================
         
         -- no aggro
-        if isTargetingGroupMember and status == 0 then
+        if status == 0 then
             SetBarColor(healthBar, COLORS.GREEN)
         -- low aggro
-        elseif isTargetingGroupMember and  status == 1 then
+        elseif status == 1 then
             SetBarColor(healthBar, COLORS.YELLOW)
         -- close to pull aggro
-        elseif isTargetingGroupMember and status == 2 then
+        elseif status == 2 then
             SetBarColor(healthBar, COLORS.ORANGE)
         -- you have aggro
-        elseif isTargetingPlayer then
+        elseif status == 3 then
             SetBarColor(healthBar, COLORS.RED)
         -- not pulled
         else
             SetBarColor(healthBar, COLORS.GREY)
-        end
+        end 
     end
 end
 
