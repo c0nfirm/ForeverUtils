@@ -7,4 +7,5 @@
 2.5   Menue checkboxen funktionieren beide jetzt
 2.6   ItemCount character cache for bank and bags per character-server
 2.7   ItemCount -> exclude equiped bags (bag, reagent and bank slot)
-2.8   Updated Thread check with check for who is targeted
+2.8   ItemCount -> now applied on items posted in chat (click the item in chat)
+      Aggro -> deactivated currently for untill fixxed/correctly implemented

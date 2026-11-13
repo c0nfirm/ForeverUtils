@@ -158,7 +158,7 @@ local function CountBank()
 end
 addon.Modules.ItemCount.CountBank = CountBank
 
-GameTooltip:HookScript("OnUpdate", function(tooltip)
+local function UpdateItemCount(tooltip)
     if not module.Enabled then
         return
     end
@@ -191,6 +191,7 @@ GameTooltip:HookScript("OnUpdate", function(tooltip)
         return
     end
 
+
     local itemID = tonumber(itemLink:match("item:(%d+)"))
     if not itemID then
         return
@@ -222,9 +223,15 @@ GameTooltip:HookScript("OnUpdate", function(tooltip)
     tooltip:AddLine("In Bags: " .. bags)
     tooltip:AddLine("In Bank: " .. bank)
     tooltip:Show()
-end)
+end
 
+GameTooltip:HookScript("OnUpdate", UpdateItemCount)
+ItemRefTooltip:HookScript("OnUpdate", UpdateItemCount)
 
 GameTooltip:HookScript("OnHide", function(tooltip)
+    tooltip.ItemCountItemID = nil
+end)
+
+ItemRefTooltip:HookScript("OnHide", function(tooltip)
     tooltip.ItemCountItemID = nil
 end)
