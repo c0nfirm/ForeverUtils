@@ -9,3 +9,6 @@
 2.7   ItemCount -> exclude equiped bags (bag, reagent and bank slot)
 2.8   ItemCount -> now applied on items posted in chat (click the item in chat)
       Aggro -> deactivated currently for untill fixxed/correctly implemented
+3.0   Added Module Bag: Open/close Reagent Bag when normal bag is opened/closed
+      --> currently only for "Combined Bag's"
+      --> menue toggle for "Bag sync" currently not working
