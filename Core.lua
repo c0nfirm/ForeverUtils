@@ -13,6 +13,10 @@ if ForeverUtillsDB.ItemCountEnabled == nil then
     ForeverUtillsDB.ItemCountEnabled = true
 end
 
+if ForeverUtillsDB.BagEnabled == nil then
+    ForeverUtillsDB.BagEnabled = true
+end
+
 -- Settings --
 local category = Settings.RegisterVerticalLayoutCategory("ForeverUtills")
 
@@ -79,6 +83,34 @@ end)
 
 C_Timer.After(0, function()
     itemCountSetting:SetValue(ForeverUtillsDB.ItemCountEnabled)
+end)
+
+local bagSetting = Settings.RegisterAddOnSetting(
+    category,
+    "ForeverUtills_BagEnabled",
+    "BagEnabled",
+    ForeverUtillsDB,
+    Settings.VarType.Boolean,
+    "Bag sync",
+    true
+)
+
+Settings.CreateCheckbox(
+    category,
+    bagSetting,
+    "Open Reagent Bag with notmal Bags."
+)
+
+bagSetting:SetValue(ForeverUtillsDB.BagEnabled)
+bagSetting:SetValueChangedCallback(function(_, value)
+
+    ForeverUtillsDB.BagEnabled = value
+
+    if value then
+        addon.Modules.Bag.Enable()
+    else
+        addon.Modules.Bag.Disable()
+    end
 end)
 
 Settings.RegisterAddOnCategory(category)

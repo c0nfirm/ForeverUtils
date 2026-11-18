@@ -2,8 +2,9 @@
 ## Title: ForeverUtills
 ## Notes: Utilities for WoW Forever
 ## Author: c0nfirm
-## Version: 2.8
+## Version: 2.9
 ## SavedVariables: ForeverUtillsDB
 
 Core.lua
 ItemCount.lua
+bag.lua
