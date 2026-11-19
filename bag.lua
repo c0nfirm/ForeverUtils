@@ -63,13 +63,13 @@ end
 local combinedFrame = ContainerFrameCombinedBags
 if combinedFrame then
     combinedFrame:HookScript("OnShow", function ()
-        if module.Enable then
+        if module.Enabled then
             OpenBag(5)
         end
     end)
 
     combinedFrame:HookScript("OnHide", function()
-        if module.Enable then
+        if module.Enabled then
             CloseBag(5)
         end
     end)

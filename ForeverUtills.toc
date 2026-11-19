@@ -2,7 +2,7 @@
 ## Title: ForeverUtills
 ## Notes: Utilities for WoW Forever
 ## Author: c0nfirm
-## Version: 2.9
+## Version: 3.1
 ## SavedVariables: ForeverUtillsDB
 
 Core.lua
